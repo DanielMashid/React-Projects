@@ -6,14 +6,14 @@
 // 	);
 // }
 
-export default function TabButton({ children, onSelect, isSelected }) {
+export default function TabButton({ children, isSelected, ...props }) {
 	return (
 		// console.log("TAB BUTTON COMPONENT EXECUTING"), // for testing
 		<li>
 			<button
 				// dynamic class name
 				className={isSelected ? "active" : undefined}
-				onClick={onSelect}
+				{...props}
 			>
 				{children}
 			</button>

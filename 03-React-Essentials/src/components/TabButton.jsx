@@ -8,17 +8,15 @@
 
 export default function TabButton({ children, onSelect, isSelected }) {
 	return (
-		console.log("TAB BUTTON COMPONENT EXECUTING"), // Just for learn
-		(
-			<li>
-				<button
-					// dynamic class name
-					className={isSelected ? "active" : undefined}
-					onClick={onSelect}
-				>
-					{children}
-				</button>
-			</li>
-		)
+		// console.log("TAB BUTTON COMPONENT EXECUTING"), // for testing
+		<li>
+			<button
+				// dynamic class name
+				className={isSelected ? "active" : undefined}
+				onClick={onSelect}
+			>
+				{children}
+			</button>
+		</li>
 	);
 }

@@ -6,10 +6,18 @@
 // 	);
 // }
 
-export default function TabButton({ children, onSelect }) {
+export default function TabButton({ children, onSelect, isSelected }) {
 	return (
-		<li>
-			<button onClick={onSelect}>{children}</button>
-		</li>
+		console.log("TAB BUTTON COMPONENT EXECUTING"), // Just for learn
+		(
+			<li>
+				<button
+					className={isSelected ? "active" : undefined}
+					onClick={onSelect}
+				>
+					{children}
+				</button>
+			</li>
+		)
 	);
 }

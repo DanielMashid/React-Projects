@@ -12,6 +12,7 @@ export default function TabButton({ children, onSelect, isSelected }) {
 		(
 			<li>
 				<button
+					// dynamic class name
 					className={isSelected ? "active" : undefined}
 					onClick={onSelect}
 				>

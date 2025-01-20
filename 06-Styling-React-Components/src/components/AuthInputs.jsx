@@ -40,7 +40,6 @@ export default function AuthInputs() {
 					/>
 				</p>
 			</div>
-			<p>Some Text Example</p> {/* Will be with color Red */}
 			<div className="actions">
 				<button type="button" className="text-button">
 					Create a new account

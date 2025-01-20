@@ -27,8 +27,8 @@ header {
   
   p {
     text-align: center;
-    /* color: #a39191; */
-    color:red;
+    color: #a39191;
+    /* color:red; */
     margin: 0;
   }
   

@@ -12,18 +12,25 @@ function App() {
 		duration: 10,
 	});
 
+	const inputIsValid = Object.values(userInputState).every(
+		(input) => input > 0
+	);
+
 	function handleChange(inputIdentifier, newValue) {
 		// Update the state with the new value for the specified input field
 		// while preserving the rest of the state.
 		setUserInputState((prevUserInput) => {
-			return { ...prevUserInput, [inputIdentifier]: newValue };
+			return { ...prevUserInput, [inputIdentifier]: +newValue }; // The "+" is used to convert the string to a number
 		});
 	}
 	return (
 		<>
 			<Header />
 			<UserInput onChangeInput={handleChange} newUserInput={userInputState} />
-			<Results inputData={userInputState} />
+			{!inputIsValid && (
+				<p className="center">Please enter valid input values</p>
+			)}
+			{inputIsValid && <Results inputData={userInputState} />}
 		</>
 	);
 }

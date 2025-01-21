@@ -1,33 +1,15 @@
 import { useState } from 'react';
 import { styled } from 'styled-components';
 
+import Button from './Button';
+import Input from './Input';
+
 // This is a styled-components version of the AuthInputs component
 const ControlContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 0.5rem;
 	margin-bottom: 1.5rem;
-`;
-
-const Label = styled.label`
-	display: block;
-	margin-bottom: 0.5rem;
-	font-size: 0.75rem;
-	font-weight: 700;
-	letter-spacing: 0.1em;
-	text-transform: uppercase;
-	color: ${({ $invalid }) => ($invalid ? '#f87171' : '#6b7280')};
-`;
-
-const Input = styled.input`
-	width: 100%;
-	padding: 0.75rem 1rem;
-	line-height: 1.5;
-	background-color: ${({ $invalid }) => ($invalid ? '#fed2d2' : '#d1d5db')};
-	color: ${({ $invalid }) => ($invalid ? '#ef4444' : '#374151')};
-	border: 1px solid ${({ $invalid }) => ($invalid ? '#f73f3f' : 'transparent')};
-	border-radius: 0.25rem;
-	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
 `;
 
 export default function AuthInputs() {
@@ -53,19 +35,15 @@ export default function AuthInputs() {
 	return (
 		<div id="auth-inputs">
 			<ControlContainer>
-				<Label $invalid={emailNotValid}>Email</Label>
 				<Input
-					$invalid={emailNotValid}
+					label="email"
+					invalid={emailNotValid}
 					type="email"
-					// style={{
-					// 	backgroundColor: emailNotValid ? '#fed2d2' : '#d1d5db',
-					// }}
-					// className={emailNotValid && 'invalid'} doesn't work with falsy values
 					onChange={(event) => handleInputChange('email', event.target.value)}
 				/>
-				<Label $invalid={passwordNotValid}>Password</Label>
 				<Input
-					$invalid={passwordNotValid}
+					label="password"
+					invalid={passwordNotValid}
 					type="password"
 					onChange={(event) => handleInputChange('password', event.target.value)}
 				/>
@@ -73,9 +51,7 @@ export default function AuthInputs() {
 					<button type="button" className="text-button">
 						Create a new account
 					</button>
-					<button className="button" onClick={handleLogin}>
-						Sign In
-					</button>
+					<Button onClick={handleLogin}>Sign In</Button>
 				</div>
 			</ControlContainer>
 		</div>

@@ -11,7 +11,8 @@ export default function TimerChallenge({ title, targetTime }) {
 	function handleStartChallenge() {
 		timer.current = setTimeout(() => {
 			setTimerExpired(true);
-			myDialog.current.showModal();
+			// myDialog.current.showModal(); This line would open the dialog modal if uncommented and myDialog is correctly referenced.
+			myDialog.current.open(); // This line calls the custom `open` method defined in the ResultModel component to show the modal.
 		}, targetTime * 1000);
 		setTimeStarted(true);
 	}
@@ -22,7 +23,7 @@ export default function TimerChallenge({ title, targetTime }) {
 
 	return (
 		<>
-			<ResultModel myRef={myDialog} result="lost" targetTime={targetTime} />
+			<ResultModel ref={myDialog} result="lost" targetTime={targetTime} />
 			<section className="challenge">
 				<h2>{title}</h2>
 				<p className="challenge-time">

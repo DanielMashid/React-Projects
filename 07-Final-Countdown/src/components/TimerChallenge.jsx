@@ -1,22 +1,19 @@
-import { useState } from 'react';
-
-// let timer; We can declare timer here, because it's will be share across all component instances
+import { useState, useRef } from 'react';
 
 export default function TimerChallenge({ title, targetTime }) {
+	const timer = useRef();
 	const [timeStarted, setTimeStarted] = useState(false);
 	const [timerExpired, setTimerExpired] = useState(false);
 
-	// let timer; We can declare timer here, because it's redeclared every time the component is rendered
-
 	function handleStartChallenge() {
-		timer = setTimeout(() => {
+		timer.current = setTimeout(() => {
 			setTimerExpired(true);
 		}, targetTime * 1000);
 		setTimeStarted(true);
 	}
 
 	function handleStopChallenge() {
-		clearTimeout(timer);
+		clearTimeout(timer.current);
 	}
 
 	return (

@@ -26,8 +26,12 @@
 // Old way
 import { forwardRef, useImperativeHandle, useRef } from 'react';
 
-const ResultModel = forwardRef(function ResultModel({ result, targetTime }, ref) {
+const ResultModel = forwardRef(function ResultModel({ targetTime, remainingTime, onReset }, ref) {
 	const dialog = useRef();
+
+	const userLost = remainingTime <= 0;
+	const formattedRemainingTime = (remainingTime / 1000).toFixed(2);
+	const score = Math.round((1 - remainingTime / (targetTime * 1000)) * 100);
 
 	// This hook allows the parent component to call the `open` method on the `ResultModel` component,
 	// which in turn calls `showModal` on the `dialog` element to display the modal.
@@ -41,17 +45,15 @@ const ResultModel = forwardRef(function ResultModel({ result, targetTime }, ref)
 
 	return (
 		<dialog ref={dialog} className="result-modal">
-			<h2>You {result}</h2>
+			{userLost && <h2>You Lost</h2>}
+			{!userLost && <h2>Your Score: {score}</h2>}
 			<p>
 				The target time was <strong>{targetTime} seconds.</strong>
 			</p>
 			<p>
-				You stopped the timer at{' '}
-				<strong>
-					{result === 'won' ? 'less' : 'more'} than {targetTime} seconds.
-				</strong>
+				You stopped the timer with <strong>{formattedRemainingTime} seconds left</strong>
 			</p>
-			<form method="dialog">
+			<form method="dialog" onSubmit={onReset}>
 				<button>Close</button>
 			</form>
 		</dialog>

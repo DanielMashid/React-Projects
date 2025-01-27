@@ -19,8 +19,6 @@ export default function NewProject({ onAdd }) {
 		});
 
 		/// ... validation logic here
-
-		console.log(enteredTitle, enteredDescription, enteredDueDate);
 	}
 
 	return (

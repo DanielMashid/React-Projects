@@ -1,13 +1,19 @@
 import { useState } from 'react';
 
 export default function NewTask({ onAddTaskFromApp }) {
-	const [enteredTask, setEnteredTask] = useState();
+	// important to have a default value of an empty string ('') because the input field is a controlled component
+	// This is likely caused by the value changing from undefined to a defined value, which should not happen.
+	// Decide between using a controlled or uncontrolled input element for the lifetime of the component
+	const [enteredTask, setEnteredTask] = useState('');
 
 	function handleTaskChange(event) {
 		setEnteredTask(event.target.value);
 	}
 
 	function handleClickButton() {
+		if (enteredTask.trim() === '') {
+			return;
+		}
 		onAddTaskFromApp(enteredTask);
 		setEnteredTask('');
 	}

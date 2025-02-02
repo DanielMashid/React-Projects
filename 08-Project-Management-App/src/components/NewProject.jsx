@@ -24,6 +24,7 @@ export default function NewProject({ onAdd, onCancel }) {
 			return;
 		}
 
+		// This is the data that we want to send to the App component
 		onAdd({
 			title: enteredTitle,
 			description: enteredDescription,

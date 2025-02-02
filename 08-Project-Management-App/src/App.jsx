@@ -17,7 +17,7 @@ function App() {
 			const newTask = {
 				text: text,
 				projectId: projectsState.selectedProjectId,
-				id: Math.random(),
+				id: Math.random(), // Random ID for now
 			};
 
 			return {

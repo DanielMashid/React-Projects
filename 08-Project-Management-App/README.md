@@ -1,6 +1,8 @@
 # Project Management App
 
-This project is part of the React Essentials course. It demonstrates how to build a project management application using React. The project covers key React concepts such as state management, component composition, and event handling. By working through this project, you'll gain a deeper understanding of how to manage state and interactions in a React application.
+This project is part of the React Essentials course. It demonstrates how to build a project management application using React.
+The project covers key React concepts such as state management, component composition, and event handling.
+By working through this project, you'll gain a deeper understanding of how to manage state and interactions in a React application.
 
 ## Features
 

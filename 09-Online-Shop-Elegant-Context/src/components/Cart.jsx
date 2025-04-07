@@ -6,7 +6,7 @@ export default function Cart() {
 	const cartCtx = useContext(CartContext);
 	// const { items } = useContext(CartContext); another way to import items from CartContext (destructuring)
 
-	const totalPrice = cartCtx.items.reduce((acc, item) => acc + item.price * item.quantity, 0);
+	const totalPrice = cartCtx.items.reduce((acc, item) => acc + item.price * item.quantity, 0); // use reduce js
 	const formattedTotalPrice = `$${totalPrice.toFixed(2)}`;
 
 	return (

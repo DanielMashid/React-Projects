@@ -7,12 +7,30 @@ import DeleteConfirmation from './components/DeleteConfirmation.jsx';
 import logoImg from './assets/logo.png';
 import { sortPlacesByDistance } from './loc.js';
 
+const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
+const storedPlaces = storedIds.map((id) => AVAILABLE_PLACES.find((place) => place.id === id));
+
 function App() {
 	const modal = useRef();
 	const selectedPlace = useRef();
 	const [availablePlaces, setAvailablePlaces] = useState([]);
-	const [pickedPlaces, setPickedPlaces] = useState([]);
+	const [pickedPlaces, setPickedPlaces] = useState(storedPlaces);
 
+	// This here is an example for a redundant and not recommended usage of useEffect.
+	// Because this code here, where we use local storage (unlike code location), runs synchronously.
+	// Which means it basically finishes instantly.
+	// It's executed line by line and once a line finished execution, it's done. We have the final result.
+
+	// useEffect(() => {
+	// 	const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
+	// 	const storedPlaces = storedIds.map((id) => AVAILABLE_PLACES.find((place) => place.id === id));
+
+	// 	setPickedPlaces(storedPlaces);
+	// }, []);
+
+	// Proper use of useEffect To prevent an infinite loop.
+	// This code reads asynchronously because we have callback function.
+	// That was executed by the browser and that happened at some point in the future.
 	useEffect(() => {
 		navigator.geolocation.getCurrentPosition((position) => {
 			const sortedPlaces = sortPlacesByDistance(
@@ -41,6 +59,11 @@ function App() {
 			const place = AVAILABLE_PLACES.find((place) => place.id === id);
 			return [place, ...prevPickedPlaces];
 		});
+
+		const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
+		if (storedIds.indexOf(id) === -1) {
+			localStorage.setItem('selectedPlaces', JSON.stringify([id, ...storedIds]));
+		}
 	}
 
 	function handleRemovePlace() {
@@ -48,6 +71,14 @@ function App() {
 			prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
 		);
 		modal.current.close();
+
+		const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
+
+		// Filter out the ID to remove it
+		const updatedIds = storedIds.filter((id) => id !== selectedPlace.current);
+
+		// Save the updated list back to localStorage
+		localStorage.setItem('selectedPlaces', JSON.stringify(updatedIds));
 	}
 
 	return (

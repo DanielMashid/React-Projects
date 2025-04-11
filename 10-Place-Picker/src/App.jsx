@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 
 import Places from './components/Places.jsx';
 import { AVAILABLE_PLACES } from './data.js';
@@ -68,11 +68,12 @@ function App() {
 		}
 	}
 
-	function handleRemovePlace() {
+	// Special hook that this function will not recreated all the time
+	const handleRemovePlace = useCallback(function handleRemovePlace() {
 		setPickedPlaces((prevPickedPlaces) =>
 			prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
 		);
-		// setModelIsOpen(false);
+		setModelIsOpen(false);
 
 		const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
 
@@ -81,7 +82,7 @@ function App() {
 
 		// Save the updated list back to localStorage
 		localStorage.setItem('selectedPlaces', JSON.stringify(updatedIds));
-	}
+	}, []);
 
 	return (
 		<>

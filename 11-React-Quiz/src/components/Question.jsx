@@ -11,6 +11,20 @@ export default function Question({ index, onSelectAnswer, onSkipAnswer }) {
 		isCorrect: null,
 	});
 
+	let timer = 5000;
+
+	// If the user has already selected an answer, we set the timer to 1000ms,
+	// because we want to show the answer for 1 second before moving to the next question
+	if (answer.selectedAnswer) {
+		timer = 1000;
+	}
+
+	// If the user has already selected an answer and it is correct or wrong, we set the timer to 2000ms,
+	// because we want to show the answer for 2 seconds before moving to the next question
+	if (answer.isCorrect !== null) {
+		timer = 2000;
+	}
+
 	function handleSelectAnswer(answer) {
 		setAnswer({
 			selectedAnswer: answer,
@@ -39,7 +53,12 @@ export default function Question({ index, onSelectAnswer, onSkipAnswer }) {
 
 	return (
 		<div id="question">
-			<QuestionTimer timeout={5000} onTimeout={onSkipAnswer} />
+			<QuestionTimer
+				key={timer}
+				timeout={timer}
+				onTimeout={answer.selectedAnswer === '' ? onSkipAnswer : null}
+				mode={answerState}
+			/>
 			<h2>{QUESTIONS[index].text}</h2>
 			<Answers
 				answers={QUESTIONS[index].answers}

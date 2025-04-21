@@ -59,6 +59,9 @@ export default function Question({ index, onSelectAnswer, onSkipAnswer }) {
 				onTimeout={answer.selectedAnswer === '' ? onSkipAnswer : null}
 				mode={answerState}
 			/>
+			<p id="question-overview">
+				Question {index + 1} of {QUESTIONS.length}
+			</p>
 			<h2>{QUESTIONS[index].text}</h2>
 			<Answers
 				answers={QUESTIONS[index].answers}

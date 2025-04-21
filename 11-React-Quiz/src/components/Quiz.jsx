@@ -5,7 +5,7 @@ import QUESTIONS from '../questions.js';
 import Question from './Question.jsx';
 import Summary from './Summary.jsx';
 
-export default function Quiz() {
+export default function Quiz({ onRestart }) {
 	const [userAnswers, setUserAnswers] = useState([]);
 
 	const activeQuestionIndex = userAnswers.length;
@@ -20,7 +20,7 @@ export default function Quiz() {
 	const handleSkipAnswer = useCallback(() => handleSelectAnswer(null), [handleSelectAnswer]);
 
 	if (quizIsComplete) {
-		return <Summary userAnswers={userAnswers} />;
+		return <Summary userAnswers={userAnswers} onRestart={onRestart} />;
 	}
 
 	return (

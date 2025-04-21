@@ -355,6 +355,32 @@ header h1 {
   letter-spacing: 0.1rem;
 }
 
+#restart-container {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+#restart-button {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 1rem;
+  padding: 1rem 2.5rem;
+  border: none;
+  border-radius: 32px;
+  background: linear-gradient(180deg, #fb8fe6 0%, #db62d9 100%);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 10px rgba(251, 143, 230, 0.4);
+  white-space: nowrap;
+  min-width: 200px;
+}
+
+#restart-button:hover {
+  background: linear-gradient(180deg, #ffacee 0%, #db62d9 100%);
+  transform: scale(1.05);
+}
+
+
 @keyframes slide-in-from-bottom {
   0% {
     opacity: 0;

@@ -1,7 +1,7 @@
 import quizCompleteImg from '../assets/quiz-complete.png';
 import QUESTIONS from '../questions.js';
 
-export default function Summary({ userAnswers }) {
+export default function Summary({ userAnswers, onRestart }) {
 	const skippedAnswers = userAnswers.filter((answer) => answer === null);
 	const correctAnswers = userAnswers.filter(
 		(answer, index) => answer === QUESTIONS[index].answers[0]
@@ -48,6 +48,11 @@ export default function Summary({ userAnswers }) {
 					);
 				})}
 			</ol>
+			<div id="restart-container">
+				<button id="restart-button" onClick={onRestart}>
+					Try Again
+				</button>
+			</div>
 		</div>
 	);
 }

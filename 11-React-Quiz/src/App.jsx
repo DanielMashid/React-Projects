@@ -10,12 +10,15 @@ function App() {
 	function handleStartQuiz() {
 		setQuizStart(true);
 	}
+	function handleRestartQuiz() {
+		setQuizStart(false);
+	}
 
 	return (
 		<>
 			<Header />
 			{!quizStart && <StartScreen onStart={handleStartQuiz} />}
-			<main>{quizStart && <Quiz />}</main>
+			<main>{quizStart && <Quiz onRestart={handleRestartQuiz} />}</main>
 		</>
 	);
 }

@@ -78,6 +78,37 @@ header h1 {
   color: #a690c5;
 }
 
+#start-screen {
+  text-align: center;
+  margin-top: 5rem;
+}
+
+#start-screen h1 {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 3rem;
+  margin: 2;
+  color: #c1b2dd;
+}
+
+.start-button {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 1.2rem;
+  padding: 1rem 2.5rem;
+  border: none;
+  border-radius: 32px;
+  background: linear-gradient(180deg, #7f5af0 0%, #5a31d8 100%);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 10px rgba(127, 90, 240, 0.5);
+}
+
+.start-button:hover {
+  background: linear-gradient(180deg, #a06bff 0%, #7b4eea 100%);
+  transform: scale(1.05);
+}
+
+
 #quiz {
   max-width: 50rem;
   margin: auto;

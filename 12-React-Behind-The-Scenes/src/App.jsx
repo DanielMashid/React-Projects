@@ -12,6 +12,7 @@ function App() {
 
 	function handleSetCount(enteredNumber) {
 		setChosenCount(enteredNumber);
+		console.log('chosenCount --> ', chosenCount); // Won't work, because this will always log the previous state, because setState is asynchronous
 	}
 
 	return (

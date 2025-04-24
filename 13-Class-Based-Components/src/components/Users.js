@@ -1,6 +1,6 @@
 import { Component } from 'react';
-import User from './User';
 
+import User from './User';
 import classes from './Users.module.css';
 
 // const DUMMY_USERS = [
@@ -14,7 +14,19 @@ class Users extends Component {
 		super(); // This is required to call the constructor of the parent class (Component) to initialize the component properly
 		this.state = {
 			showUsers: true,
+			more: 'Test',
 		};
+	}
+
+	componentDidUpdate() {
+		// try {
+		//   someCodeWhichMightFail()
+		// } catch (err) {
+		//   // handle error
+		// }
+		if (this.props.users.length === 0) {
+			throw new Error('No users provided!');
+		}
 	}
 
 	toggleUsersHandler() {

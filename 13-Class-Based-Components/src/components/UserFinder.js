@@ -2,14 +2,17 @@ import { Component, Fragment } from 'react';
 
 import Users from './Users';
 import classes from './UserFinder.module.css';
+import UsersContext from '../store/users-context';
 
-const DUMMY_USERS = [
-	{ id: 'u1', name: 'Max' },
-	{ id: 'u2', name: 'Manuel' },
-	{ id: 'u3', name: 'Julie' },
-];
+// const DUMMY_USERS = [
+// 	{ id: 'u1', name: 'Max' },
+// 	{ id: 'u2', name: 'Manuel' },
+// 	{ id: 'u3', name: 'Julie' },
+// ];
 
 class UserFinder extends Component {
+	static contextType = UsersContext; // This is how we can use context in class-based components
+
 	constructor() {
 		super();
 		this.state = {
@@ -20,14 +23,16 @@ class UserFinder extends Component {
 
 	componentDidMount() {
 		// Send http request...
-		this.setState({ filteredUsers: DUMMY_USERS });
+		this.setState({ filteredUsers: this.context.users });
 	}
 
 	componentDidUpdate(prevProps, prevState) {
 		// We don't used her in prevProps, because we don't have any props, prevState is the previous state
 		if (prevState.searchTerm !== this.state.searchTerm) {
 			this.setState({
-				filteredUsers: DUMMY_USERS.filter((user) => user.name.includes(this.state.searchTerm)),
+				filteredUsers: this.context.users.filter((user) =>
+					user.name.includes(this.state.searchTerm)
+				),
 			});
 		}
 	}

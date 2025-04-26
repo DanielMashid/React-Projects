@@ -1,8 +1,17 @@
 import Places from './Places.jsx';
 
 export default function AvailablePlaces({ onSelectPlace }) {
-	// Todo: Fetch available places from backend API
 	const [availablePlaces, setAvailablePlaces] = useState([]);
+
+	// Fetching data from the backend API
+	// Not a good way, because it will be called every time the component is rendered
+	fetch('http://localhost:3000/places')
+		.then((response) => {
+			return response.json();
+		})
+		.then((resData) => {
+			setAvailablePlaces(resData.Places);
+		});
 
 	return (
 		<Places

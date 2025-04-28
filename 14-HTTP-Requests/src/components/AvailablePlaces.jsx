@@ -59,8 +59,12 @@ export default function AvailablePlaces({ onSelectPlace }) {
 		fetchPlaces();
 	}, []);
 
+	function handleError() {
+		setError(null);
+	}
+
 	if (error) {
-		return <ErrorPage title="An error occurred" message={error.message} />;
+		return <ErrorPage title="An error occurred" message={error.message} onConfirm={handleError} />;
 	}
 
 	return (

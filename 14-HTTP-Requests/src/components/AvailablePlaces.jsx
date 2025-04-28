@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Places from './Places.jsx';
 import ErrorPage from './Error.jsx';
 import { sortPlacesByDistance } from '../loc.js';
+import { fetchAvailablePlaces } from '../http.js';
 
 export default function AvailablePlaces({ onSelectPlace }) {
 	// When using fetching data, it's super-common to have these three pieces of state work together.
@@ -37,17 +38,13 @@ export default function AvailablePlaces({ onSelectPlace }) {
 	useEffect(() => {
 		async function fetchPlaces() {
 			setIsFetching(true);
-			try {
-				const response = await fetch('http://localhost:3000/places'); // can take a couple of seconds
-				const resData = await response.json();
 
-				if (!response.ok) {
-					throw new ErrorPage('Failed to fetch places');
-				}
+			try {
+				const places = await fetchAvailablePlaces(); // outsource the actual fetching code
 
 				navigator.geolocation.getCurrentPosition((position) => {
 					const sortedPlaces = sortPlacesByDistance(
-						resData.places,
+						places,
 						position.coords.latitude,
 						position.coords.longitude
 					);

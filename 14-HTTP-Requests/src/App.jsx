@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback, useEffect } from 'react';
+import { useRef, useState, useCallback } from 'react';
 
 import Places from './components/Places.jsx';
 import Modal from './components/Modal.jsx';
@@ -9,18 +9,21 @@ import AvailablePlaces from './components/AvailablePlaces.jsx';
 import ErrorPage from './components/Error.jsx';
 
 import { updateUserPlaces, fetchUserPlaces } from './http.js';
+import { useFetch } from './hooks/useFetch.js';
 
 function App() {
 	const selectedPlace = useRef();
 
-	const [userPlaces, setUserPlaces] = useState([]);
-	const [isFetching, setIsFetching] = useState(false); // loading state
-	const [error, setError] = useState(); // error state
 	const [errorUpdatingPlaces, setErrorUpdatingPlaces] = useState();
 
 	const [modalIsOpen, setModalIsOpen] = useState(false);
 
-	useFetch();
+	const {
+		isFetching,
+		error,
+		fetchedData: userPlaces,
+		setFetchedData: setUserPlaces, // alias for setFetchedData
+	} = useFetch(fetchUserPlaces, []);
 
 	function handleStartRemovePlace(place) {
 		setModalIsOpen(true);
@@ -68,7 +71,7 @@ function App() {
 
 			setModalIsOpen(false);
 		},
-		[userPlaces]
+		[userPlaces, setUserPlaces]
 	);
 
 	function handleError() {

@@ -1,10 +1,28 @@
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 
 import Places from './Places.jsx';
 import ErrorPage from './Error.jsx';
 import { sortPlacesByDistance } from '../loc.js';
 import { fetchAvailablePlaces } from '../http.js';
 import { useFetch } from '../hooks/useFetch.js';
+
+// Using a custom hook 4
+async function fetchSortedPlaces() {
+	const places = await fetchAvailablePlaces(); // outsource the actual fetching code
+
+	// promise is a js object that represents the eventual completion (or failure) of an asynchronous operation and its resulting value
+	return new Promise((resolve) => {
+		navigator.geolocation.getCurrentPosition((position) => {
+			const sortedPlaces = sortPlacesByDistance(
+				places,
+				position.coords.latitude,
+				position.coords.longitude
+			);
+
+			resolve(sortedPlaces);
+		});
+	});
+}
 
 export default function AvailablePlaces({ onSelectPlace }) {
 	// Using .then() 1
@@ -55,13 +73,7 @@ export default function AvailablePlaces({ onSelectPlace }) {
 	// 	fetchPlaces();
 	// }, []);
 
-	// Using a custom hook 4
-	const {
-		isFetching,
-		error,
-		fetchedData: availablePlaces,
-		setFetchedData: setAvailablePlaces, // alias for setFetchedData
-	} = useFetch(fetchAvailablePlaces, []);
+	const { isFetching, error, fetchedData: availablePlaces } = useFetch(fetchSortedPlaces, []);
 
 	function handleError() {
 		setError(null);

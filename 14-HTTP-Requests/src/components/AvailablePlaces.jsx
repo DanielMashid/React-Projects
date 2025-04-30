@@ -4,13 +4,9 @@ import Places from './Places.jsx';
 import ErrorPage from './Error.jsx';
 import { sortPlacesByDistance } from '../loc.js';
 import { fetchAvailablePlaces } from '../http.js';
+import { useFetch } from '../hooks/useFetch.js';
 
 export default function AvailablePlaces({ onSelectPlace }) {
-	// When using fetching data, it's super-common to have these three pieces of state work together.
-	const [isFetching, setIsFetching] = useState(false); // loading state
-	const [availablePlaces, setAvailablePlaces] = useState([]); // data state
-	const [error, setError] = useState(); // error state
-
 	// Using .then() 1
 	// useEffect(() => {
 	// 	fetch('http://localhost:3000/places')
@@ -35,29 +31,37 @@ export default function AvailablePlaces({ onSelectPlace }) {
 	// }, []);
 
 	// Using try / catch / finally and async / await 3
-	useEffect(() => {
-		async function fetchPlaces() {
-			setIsFetching(true);
+	// useEffect(() => {
+	// 	async function fetchPlaces() {
+	// 		setIsFetching(true);
 
-			try {
-				const places = await fetchAvailablePlaces(); // outsource the actual fetching code
+	// 		try {
+	// 			const places = await fetchAvailablePlaces(); // outsource the actual fetching code
 
-				navigator.geolocation.getCurrentPosition((position) => {
-					const sortedPlaces = sortPlacesByDistance(
-						places,
-						position.coords.latitude,
-						position.coords.longitude
-					);
-					setAvailablePlaces(sortedPlaces);
-					setIsFetching(false); // When we are finish to load the places
-				});
-			} catch (error) {
-				setError({ message: error.message || 'Could not fetch places, please try again later.' });
-				setIsFetching(false); // Or we are get an error
-			}
-		}
-		fetchPlaces();
-	}, []);
+	// 			navigator.geolocation.getCurrentPosition((position) => {
+	// 				const sortedPlaces = sortPlacesByDistance(
+	// 					places,
+	// 					position.coords.latitude,
+	// 					position.coords.longitude
+	// 				);
+	// 				setAvailablePlaces(sortedPlaces);
+	// 				setIsFetching(false); // When we are finish to load the places
+	// 			});
+	// 		} catch (error) {
+	// 			setError({ message: error.message || 'Could not fetch places, please try again later.' });
+	// 			setIsFetching(false); // Or we are get an error
+	// 		}
+	// 	}
+	// 	fetchPlaces();
+	// }, []);
+
+	// Using a custom hook 4
+	const {
+		isFetching,
+		error,
+		fetchedData: availablePlaces,
+		setFetchedData: setAvailablePlaces, // alias for setFetchedData
+	} = useFetch(fetchAvailablePlaces, []);
 
 	function handleError() {
 		setError(null);

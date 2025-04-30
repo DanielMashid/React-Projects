@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 export function useFetch(fetchFunction, initialValue) {
+	// When using fetching data, it's super-common to have these three pieces of state work together.
 	const [isFetching, setIsFetching] = useState(false); // loading state
 	const [error, setError] = useState(); // error state
 	const [fetchedData, setFetchedData] = useState(initialValue); // data state

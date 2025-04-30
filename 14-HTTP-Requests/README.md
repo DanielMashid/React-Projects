@@ -2,7 +2,9 @@
 
 ## Description
 
-This project demonstrates how to handle HTTP requests in a React application. It includes examples of fetching data from a backend, managing loading and error states, and sorting data based on user location using the Geolocation API.
+This project demonstrates how to handle HTTP requests in a React application.
+It includes examples of fetching data from a backend, managing loading and error states, and sorting data based on user location using the Geolocation API.
+It is also includes Building Custom React Hooks for using in multiple components. Managing State & Returning State Values
 
 ## Project Structure
 

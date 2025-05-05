@@ -21,7 +21,8 @@ export default function Login() {
 
 			<p className="form-actions">
 				<button className="button button-flat">Reset</button>
-				<button className="button" onClick={handleSubmit}>
+				{/* type="submit" is the default */}
+				<button type="button" className="button" onClick={handleSubmit}>
 					Login
 				</button>
 			</p>

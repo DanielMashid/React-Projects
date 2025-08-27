@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Input from './Input.jsx';
 
 export default function StateLogin() {
 	const [enteredValue, setEnteredValue] = useState({
@@ -12,6 +13,7 @@ export default function StateLogin() {
 	});
 
 	const emailIsInvalid = didEdit.email && !enteredValue.email.includes('@');
+	const passwordIsInvalid = didEdit.password && enteredValue.password.trim().length < 6;
 
 	function handleSubmit(event) {
 		event.preventDefault(); // Prevent the default form submission behavior
@@ -43,33 +45,27 @@ export default function StateLogin() {
 			<h2>Login</h2>
 
 			<div className="control-row">
-				<div className="control no-margin">
-					<label htmlFor="email">Email</label>
-					<input
-						id="email"
-						type="email"
-						name="email"
-						onBlur={() => handleInputBlur('email')}
-						onChange={(event) => handleInputChange('email', event.target.value)}
-						value={enteredValue.email}
-						placeholder="Your email address"
-					/>
-					<div className="control-error">
-						{emailIsInvalid && <p>Please enter a valid email add address. </p>}
-					</div>
-				</div>
+				<Input
+					label="Email"
+					id="email"
+					type="email"
+					name="email"
+					onBlur={() => handleInputBlur('email')}
+					onChange={(event) => handleInputChange('email', event.target.value)}
+					value={enteredValue.email}
+					error={emailIsInvalid && 'Please enter a valid email.'}
+				/>
 
-				<div className="control no-margin">
-					<label htmlFor="password">Password</label>
-					<input
-						id="password"
-						type="password"
-						name="password"
-						onChange={(event) => handleInputChange('password', event.target.value)}
-						value={enteredValue.password}
-						placeholder="Your password"
-					/>
-				</div>
+				<Input
+					label="Password"
+					id="password"
+					type="password"
+					name="password"
+					onBlur={() => handleInputBlur('password')}
+					onChange={(event) => handleInputChange('password', event.target.value)}
+					value={enteredValue.password}
+					error={passwordIsInvalid && 'Please enter a valid password (min. 6 characters).'}
+				/>
 			</div>
 
 			<p className="form-actions">

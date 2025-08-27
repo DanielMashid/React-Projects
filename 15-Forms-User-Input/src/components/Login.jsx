@@ -10,6 +10,10 @@ export default function Login() {
 		const enteredEmail = email.current.value;
 		const enteredPassword = password.current.value;
 		console.log({ email: enteredEmail, password: enteredPassword });
+
+		// Not ideal to manipulate the DOM directly like this, but it's okay for simple forms
+		// email.current.value = '';
+		// password.current.value = '';
 	}
 
 	return (

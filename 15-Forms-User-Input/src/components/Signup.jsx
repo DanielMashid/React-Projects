@@ -8,6 +8,8 @@ export default function Signup() {
 		const data = Object.fromEntries(formDataObject.entries()); // Converts form data into a regular object.
 		data.acquisition = acquisitionChannel;
 		console.log(data);
+
+		// event.target.reset(); // Another way to clears all the form fields after submission.
 	}
 	return (
 		<form onSubmit={handleSubmit}>

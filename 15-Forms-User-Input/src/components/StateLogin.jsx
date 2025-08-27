@@ -9,6 +9,7 @@ export default function StateLogin() {
 	function handleSubmit(event) {
 		event.preventDefault(); // Prevent the default form submission behavior
 		console.log(enteredValue);
+		setEnteredValue({ email: '', password: '' }); // Clear the form fields after submission
 	}
 
 	function handleInputChange(identifier, value) {

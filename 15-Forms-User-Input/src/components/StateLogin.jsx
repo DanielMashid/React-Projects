@@ -6,8 +6,12 @@ export default function StateLogin() {
 		password: '',
 	});
 
-	// Not good --> We are showing the error message too early
-	const emailIsInvalid = enteredValue.email !== '' && !enteredValue.email.includes('@');
+	const [didEdit, setDidEdit] = useState({
+		email: false,
+		password: false,
+	});
+
+	const emailIsInvalid = didEdit.email && !enteredValue.email.includes('@');
 
 	function handleSubmit(event) {
 		event.preventDefault(); // Prevent the default form submission behavior
@@ -15,10 +19,22 @@ export default function StateLogin() {
 		setEnteredValue({ email: '', password: '' }); // Clear the form fields after submission
 	}
 
+	// Generic handler for input changes
 	function handleInputChange(identifier, value) {
-		setEnteredValue((prevState) => ({
-			...prevState,
+		setEnteredValue((prevValues) => ({
+			...prevValues,
 			[identifier]: value,
+		}));
+		setDidEdit((prevEdit) => ({
+			...prevEdit,
+			[identifier]: false,
+		}));
+	}
+
+	function handleInputBlur(identifier) {
+		setDidEdit((prevEdit) => ({
+			...prevEdit,
+			[identifier]: true,
 		}));
 	}
 
@@ -33,6 +49,7 @@ export default function StateLogin() {
 						id="email"
 						type="email"
 						name="email"
+						onBlur={() => handleInputBlur('email')}
 						onChange={(event) => handleInputChange('email', event.target.value)}
 						value={enteredValue.email}
 						placeholder="Your email address"

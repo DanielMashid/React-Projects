@@ -8,6 +8,7 @@ export default function StateLogin() {
 		handleInputChange: handleEmailChange,
 		handleInputBlur: handleEmailBlur,
 		hasError: emailHasError,
+		reset: resetEmail,
 	} = useInput('', (value) => isEmail(value) && isNotEmpty(value));
 
 	const {
@@ -15,6 +16,7 @@ export default function StateLogin() {
 		handleInputChange: handlePasswordChange,
 		handleInputBlur: handlePasswordBlur,
 		hasError: passwordHasError,
+		reset: resetPassword,
 	} = useInput('', (value) => hasMinLength(value, 6));
 
 	function handleSubmit(event) {
@@ -26,6 +28,9 @@ export default function StateLogin() {
 
 		console.log({ email: emailValue, password: passwordValue });
 		console.log('Sending HTTP request...');
+
+		resetEmail();
+		resetPassword();
 	}
 
 	return (

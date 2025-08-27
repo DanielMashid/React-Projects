@@ -1,4 +1,8 @@
+import { useState } from 'react';
+
 export default function Signup() {
+	const [passwordsAreNotEqual, setPasswordsAreNotEqual] = useState(false);
+
 	// To make sure that this automatically generated HTTP request is not being sent.
 	function handleSubmit(event) {
 		event.preventDefault();
@@ -7,6 +11,12 @@ export default function Signup() {
 		const acquisitionChannel = formDataObject.getAll('acquisition'); // Grabs all values of the checkboxes with the name "acquisition".
 		const data = Object.fromEntries(formDataObject.entries()); // Converts form data into a regular object.
 		data.acquisition = acquisitionChannel;
+
+		if (data.password !== data['confirm-password']) {
+			setPasswordsAreNotEqual(true);
+			return;
+		}
+
 		console.log(data);
 
 		// event.target.reset(); // Another way to clears all the form fields after submission.
@@ -29,7 +39,10 @@ export default function Signup() {
 
 				<div className="control">
 					<label htmlFor="confirm-password">Confirm Password</label>
-					<input id="confirm-password" type="password" name="confirm-password" />
+					<input id="confirm-password" type="password" name="confirm-password" required />
+					<div className="control-error">
+						{passwordsAreNotEqual && <p>Passwords must match. </p>}
+					</div>
 				</div>
 			</div>
 

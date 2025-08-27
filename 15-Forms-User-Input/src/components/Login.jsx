@@ -5,7 +5,7 @@ export default function Login() {
 	const password = useRef();
 
 	function handleSubmit(event) {
-		event.preventDefault();
+		event.preventDefault(); // To make sure that this automatically generated HTTP request is not being sent.
 
 		const enteredEmail = email.current.value;
 		const enteredPassword = password.current.value;

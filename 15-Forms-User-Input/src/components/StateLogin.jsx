@@ -6,6 +6,9 @@ export default function StateLogin() {
 		password: '',
 	});
 
+	// Not good --> We are showing the error message too early
+	const emailIsInvalid = enteredValue.email !== '' && !enteredValue.email.includes('@');
+
 	function handleSubmit(event) {
 		event.preventDefault(); // Prevent the default form submission behavior
 		console.log(enteredValue);
@@ -34,6 +37,9 @@ export default function StateLogin() {
 						value={enteredValue.email}
 						placeholder="Your email address"
 					/>
+					<div className="control-error">
+						{emailIsInvalid && <p>Please enter a valid email add address. </p>}
+					</div>
 				</div>
 
 				<div className="control no-margin">

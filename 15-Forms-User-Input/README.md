@@ -1,4 +1,4 @@
-# 15-Forms-User-Input
+# Forms-User-Input
 
 This project demonstrates how to handle user input and forms in React. It covers the following concepts:
 

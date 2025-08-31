@@ -1,6 +1,13 @@
 {
   "opinions": [
     {
+      "id": 1756647044181,
+      "votes": 0,
+      "userName": "Daniel",
+      "title": "I really want to learn React",
+      "body": "I think that if you learn every day, you will succeed\neven if it's short, learning every day"
+    },
+    {
       "id": 1,
       "userName": "Maximilian Schwarzmüller",
       "title": "Do yourself a favor and learn React!",

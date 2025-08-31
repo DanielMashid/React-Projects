@@ -1,7 +1,11 @@
-import { useActionState } from 'react';
+import { useActionState, useContext } from 'react';
+
+import { OpinionsContext } from '../store/opinions-context';
 
 export function NewOpinion() {
-	function shareOpinionAction(prevState, formData) {
+	const { addOpinion } = useContext(OpinionsContext);
+
+	async function shareOpinionAction(prevState, formData) {
 		const userName = formData.get('userName');
 		const title = formData.get('title');
 		const body = formData.get('body');
@@ -31,7 +35,7 @@ export function NewOpinion() {
 			};
 		}
 
-		// Here you can send the data to a server or perform other actions
+		await addOpinion({ userName, title, body });
 
 		return { errorsMessage: null };
 	}

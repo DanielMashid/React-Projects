@@ -1,6 +1,13 @@
 {
   "opinions": [
     {
+      "id": 1756647567603,
+      "votes": 0,
+      "userName": "Bar",
+      "title": "React is a nonig program lenguuge",
+      "body": "Bla Bla Bla Yada Yada Yada"
+    },
+    {
       "id": 1756647044181,
       "votes": 0,
       "userName": "Daniel",

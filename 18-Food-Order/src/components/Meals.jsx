@@ -1,18 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Meals() {
 	const [loadedMeals, setLoadedMeals] = useState([]);
 
-	async function fetchMeals() {
-		const response = await fetch('http://localhost:3000/meals', { method: 'GET' }); // can take a couple of seconds
-		const meals = await response.json();
+	useEffect(() => {
+		async function fetchMeals() {
+			const response = await fetch('http://localhost:3000/meals', { method: 'GET' }); // can take a couple of seconds
+			if (!response.ok) {
+				throw new Error('Failed to fetch meals');
+			}
 
-		if (!response.ok) {
-			throw new Error('Failed to fetch meals');
+			const meals = await response.json();
+			setLoadedMeals(meals);
 		}
-		setLoadedMeals(meals);
-		return meals;
-	}
+		fetchMeals();
+	}, []);
 
 	return (
 		<ul id="meals">

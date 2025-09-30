@@ -59,14 +59,11 @@ export function CartContextProvider({ children }) {
 		dispatchCartAction({ type: 'REMOVE_ITEM', id: id });
 	}
 
-	// cartContext instead of CartContext --- IGNORE ---
 	const cartCtx = {
 		items: cartState.items,
 		addItem: addItemToCart,
 		removeItem: removeItemFromCart,
 	};
-
-	console.log(cartCtx);
 
 	return <CartContext.Provider value={cartCtx}>{children}</CartContext.Provider>;
 }

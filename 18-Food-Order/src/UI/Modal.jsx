@@ -6,9 +6,12 @@ export default function Modal({ children, open, className = '' }) {
 	const dialogRef = useRef();
 
 	useEffect(() => {
+		const modal = dialogRef.current;
 		if (open) {
-			dialogRef.current.showModal();
+			modal.showModal();
 		}
+
+		return () => modal.close(); // cleanup function to close the dialog when component unmounts or open changes
 	}, [open]);
 
 	return createPortal(

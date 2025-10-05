@@ -17,9 +17,21 @@ export default function Checkout() {
 		userProgressCtx.hideCheckout();
 	}
 
+	function handleSubmit(event) {
+		// make sure that this request, which otherwise would get created and sent is not getting created and sent.
+		event.preventDefault();
+
+		// validation could be added here, but it is already done by Input component with required attribute
+
+		const formData = new FormData(event.target);
+		const customerData = Object.fromEntries(formData.entries()); // {email: test@example.com}
+
+		// send http request...
+	}
+
 	return (
 		<Modal open={userProgressCtx.progress === 'checkout'} onClose={handleCloseCheckout}>
-			<form>
+			<form onSubmit={handleSubmit}>
 				<h2>Checkout</h2>
 				<p>Total Amount: {currencyFormatter.format(totalAmount)}</p>
 				<Input label="Your Name" id="name" type="text" />

@@ -5,6 +5,7 @@ import Modal from '../UI/Modal.jsx';
 import CartContext from '../store/CartContext.jsx';
 import Button from '../UI/Button.jsx';
 import UserProgressContext from '../store/UserProgressContext.jsx';
+import CartItem from './CartItem.jsx';
 
 export default function Cart() {
 	const cartCtx = useContext(CartContext);
@@ -21,9 +22,12 @@ export default function Cart() {
 			<h2>Your Cart</h2>
 			<ul>
 				{cartCtx.items.map((item) => (
-					<li key={item.id}>
-						{item.name} - {item.quantity}
-					</li>
+					<CartItem
+						key={item.id}
+						item={item}
+						onIncrease={() => cartCtx.addItem(item)}
+						onDecrease={() => cartCtx.removeItem(item.id)} // because we only need the id to remove an item
+					/>
 				))}
 			</ul>
 			<p className="cart-total">{currencyFormatter.format(cartTotalPrice)}</p>

@@ -25,6 +25,7 @@ export default function Checkout() {
 		isLoading: isSending,
 		error,
 		sendRequest,
+		clearData,
 	} = useHttp('http://localhost:3000/orders', requestConfig);
 
 	const totalAmount = cartCtx.items.reduce((acc, item) => acc + item.price * item.quantity, 0);
@@ -36,6 +37,7 @@ export default function Checkout() {
 	function handleFinishOrder() {
 		userProgressCtx.hideCheckout();
 		cartCtx.clearCart();
+		clearData();
 	}
 
 	function handleSubmit(event) {

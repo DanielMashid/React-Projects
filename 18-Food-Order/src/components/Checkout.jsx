@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useActionState } from 'react';
 
 import { currencyFormatter } from '../util/formatting.js';
 import Modal from '../UI/Modal.jsx';
@@ -20,13 +20,10 @@ export default function Checkout() {
 	const cartCtx = useContext(CartContext);
 	const userProgressCtx = useContext(UserProgressContext);
 
-	const {
-		data,
-		isLoading: isSending,
-		error,
-		sendRequest,
-		clearData,
-	} = useHttp('http://localhost:3000/orders', requestConfig);
+	const { data, error, sendRequest, clearData } = useHttp(
+		'http://localhost:3000/orders',
+		requestConfig
+	);
 
 	const totalAmount = cartCtx.items.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
@@ -40,7 +37,7 @@ export default function Checkout() {
 		clearData();
 	}
 
-	async function checkoutAction(formData) {
+	async function checkoutAction(prevState, formData) {
 		// validation could be added here, but it is already done by Input component with required attribute
 
 		const customerData = Object.fromEntries(formData.entries()); // {email: test@example.com}
@@ -56,6 +53,8 @@ export default function Checkout() {
 		);
 	}
 
+	const [formState, formAction, pending] = useActionState(checkoutAction, null);
+
 	// Define actions for the modal
 	let actions = (
 		<>
@@ -66,7 +65,7 @@ export default function Checkout() {
 		</>
 	);
 
-	if (isSending) {
+	if (pending) {
 		actions = <span>Sending order data...</span>;
 	}
 
@@ -85,7 +84,7 @@ export default function Checkout() {
 
 	return (
 		<Modal open={userProgressCtx.progress === 'checkout'} onClose={handleFinishOrder}>
-			<form action={checkoutAction}>
+			<form action={formAction}>
 				<h2>Checkout</h2>
 				<p>Total Amount: {currencyFormatter.format(totalAmount)}</p>
 				<Input label="Your Name" id="name" type="text" />

@@ -4,9 +4,11 @@ const CartContext = createContext({
 	items: [],
 	addItem: (item) => {},
 	removeItem: (id) => {},
+	clearCart: () => {},
 });
 
 function cartReducer(state, action) {
+	// 1
 	if (action.type === 'ADD_ITEM') {
 		// state.items.push(action.payload); Not good --> never mutate state directly
 
@@ -28,7 +30,9 @@ function cartReducer(state, action) {
 			updatedItems.push({ ...action.item, quantity: 1 });
 		}
 		return { ...state, items: updatedItems };
-	} else if (action.type === 'REMOVE_ITEM') {
+	}
+	// 2
+	else if (action.type === 'REMOVE_ITEM') {
 		const existingCartItemIndex = state.items.findIndex((item) => item.id === action.id); // don't need action.item.id
 		const existingItem = state.items[existingCartItemIndex];
 		const updatedItems = [...state.items];
@@ -45,6 +49,12 @@ function cartReducer(state, action) {
 		}
 		return { ...state, items: updatedItems };
 	}
+	// 3
+	else if (action.type === 'CLEAR_CART') {
+		return { items: [] };
+	}
+
+	// 4
 	return state;
 }
 
@@ -58,11 +68,15 @@ export function CartContextProvider({ children }) {
 	function removeItemFromCart(id) {
 		dispatchCartAction({ type: 'REMOVE_ITEM', id: id });
 	}
+	function clearCart() {
+		dispatchCartAction({ type: 'CLEAR_CART' });
+	}
 
 	const cartCtx = {
 		items: cartState.items,
 		addItem: addItemToCart,
 		removeItem: removeItemFromCart,
+		clearCart: clearCart,
 	};
 
 	return <CartContext.Provider value={cartCtx}>{children}</CartContext.Provider>;

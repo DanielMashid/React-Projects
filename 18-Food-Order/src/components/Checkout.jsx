@@ -18,12 +18,12 @@ export default function Checkout() {
 	}
 
 	function handleSubmit(event) {
-		// make sure that this request, which otherwise would get created and sent is not getting created and sent.
+		// Prevent the default form submission behavior
 		event.preventDefault();
 
 		// validation could be added here, but it is already done by Input component with required attribute
 
-		const formData = new FormData(event.target);
+		const formData = new FormData(event.target); // HTML form element is event.target
 		const customerData = Object.fromEntries(formData.entries()); // {email: test@example.com}
 
 		// send http request...
